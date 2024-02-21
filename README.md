@@ -2,12 +2,15 @@
 
 提供两种使用方式：hook `useReactSequenceFramePlayer()` 和 组件式 `<ReactSequenceFramePlayer />`。
 
+https://www.npmjs.com/package/react-sequence-frame-player
+
 ## hook
 
 ```jsx
-import useReactSequenceFramePlayer, {
+import {
+  useReactSequenceFramePlayer,
   IReactSequenceFramePlayerHookProps,
-} from "./use-react-sequence-frame-player"
+} from "react-sequence-frame-player"
 
 const baseProps: Partial<IReactSequenceFramePlayerHookProps> = {
   pattern:
@@ -29,12 +32,11 @@ const { dom, play, pause } = useReactSequenceFramePlayer({
 ## 组件
 
 ```jsx
-import ReactSequenceFramePlayer, {
+import {
+  ReactSequenceFramePlayer,
   IReactSequenceFramePlayerRef,
-} from "./ReactSequenceFramePlayer"
-import useReactSequenceFramePlayer, {
   IReactSequenceFramePlayerHookProps,
-} from "./use-react-sequence-frame-player"
+} from "react-sequence-frame-player"
 
 return (
   <ReactSequenceFramePlayer
