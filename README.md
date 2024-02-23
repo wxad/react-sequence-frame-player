@@ -3,6 +3,7 @@
 提供两种使用方式：hook `useReactSequenceFramePlayer()` 和 组件式 `<ReactSequenceFramePlayer />`。
 
 https://www.npmjs.com/package/react-sequence-frame-player
+https://github.com/wxad/react-sequence-frame-player
 
 ## hook
 
