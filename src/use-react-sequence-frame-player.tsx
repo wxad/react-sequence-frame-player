@@ -62,6 +62,9 @@ const useReactSequenceFramePlayer = ({
   const interval = 1000 / (fps || 30);
   const loadedImagesRef = useRef(new Set<string>());
   const startIndexRef = useRef(startIndex);
+  const isReadyRef = useRef(false);
+  const readyPromiseRef = useRef<Promise<void>>();
+  const resolveReadyRef = useRef<() => void>();
 
   const imgs = urls;
   if (!imgs.length && pattern) {
@@ -84,6 +87,11 @@ const useReactSequenceFramePlayer = ({
       imagesElsRef.current = Array.from(
         rootElRef.current.querySelectorAll('img')
       );
+    }
+
+    isReadyRef.current = true;
+    if (resolveReadyRef.current) {
+      resolveReadyRef.current();
     }
 
     if (autoPlay) {
@@ -111,9 +119,12 @@ const useReactSequenceFramePlayer = ({
     onEnd();
   };
 
-  const play = () => {
+  const play = async () => {
     if (intervalRef.current) {
       return;
+    }
+    if (!isReadyRef.current) {
+      await readyPromiseRef.current;
     }
     handleStart();
     let index = startIndexRef.current;
@@ -176,6 +187,10 @@ const useReactSequenceFramePlayer = ({
   );
 
   useEffect(() => {
+    readyPromiseRef.current = new Promise(resolve => {
+      resolveReadyRef.current = resolve;
+    });
+
     return () => {
       clearInterval();
     };
