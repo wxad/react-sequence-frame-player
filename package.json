@@ -1,71 +1,62 @@
 {
+  "name": "react-sequence-frame-player",
   "version": "1.0.3",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "description": "React sequence framer player",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
-  "engines": {
-    "node": ">=10"
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "type-check": "tsc --noEmit",
+    "build": "pnpm type-check && bunchee",
+    "dev": "bunchee --watch",
+    "dev:website": "turbo run dev --filter=website...",
+    "build:website": "turbo run build --filter=website...",
+    "dev:test": "turbo run dev --filter=test...",
+    "format": "prettier --write .",
+    "test": "playwright test"
+  },
+  "keywords": [
+    "react",
+    "sequence"
+  ],
+  "author": "Aragakey. <aragakey@qq.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/wxad/react-sequence-frame-player",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wxad/react-sequence-frame-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wxad/react-sequence-frame-player/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "bunchee": "^5.4.0",
+    "eslint": "^9.9.1",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "turbo": "^2.1.1",
+    "typescript": "^5.5.4"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": "^16.8 || ^17.0 || ^18.0",
+    "react-dom": "^16.8 || ^17.0 || ^18.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "react-sequence-frame-player",
-  "author": "yijiejiang",
-  "module": "dist/react-sequence-frame-player.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/react-sequence-frame-player.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/react-sequence-frame-player.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.23.9",
-    "@size-limit/preset-small-lib": "^11.0.2",
-    "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-links": "^7.6.17",
-    "@storybook/addons": "^7.6.17",
-    "@storybook/react": "^7.6.17",
-    "@types/react": "^18.2.57",
-    "@types/react-dom": "^18.2.19",
-    "babel-loader": "^9.1.3",
-    "husky": "^9.0.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
-    "size-limit": "^11.0.2",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.3"
-  }
+  "packageManager": "pnpm@9.9.0"
 }

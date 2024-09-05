@@ -84,9 +84,7 @@ const useReactSequenceFramePlayer = ({
   const handleReady = () => {
     onReady();
     if (rootElRef.current) {
-      imagesElsRef.current = Array.from(
-        rootElRef.current.querySelectorAll('img')
-      );
+      imagesElsRef.current = Array.from(rootElRef.current.querySelectorAll('img'));
     }
 
     isReadyRef.current = true;
@@ -128,38 +126,38 @@ const useReactSequenceFramePlayer = ({
     }
     handleStart();
     let index = startIndexRef.current;
-    intervalRef.current = window.setInterval(() => {
-      if (index >= imgs.length) {
-        if (loop) {
-          index = startIndex;
-          loopCountRef.current++;
-          onLooped(loopCountRef.current);
-        } else {
-          handleEnd();
-          return;
+
+    setTimeout(() => {
+      intervalRef.current = window.setInterval(() => {
+        if (index >= imgs.length) {
+          if (loop) {
+            index = startIndex;
+            loopCountRef.current++;
+            onLooped(loopCountRef.current);
+          } else {
+            handleEnd();
+            return;
+          }
         }
-      }
-      currentFrameIndexRef.current = index;
-      const prevIndex = index - 1 < 0 ? imgs.length - 1 : index - 1;
+        currentFrameIndexRef.current = index;
+        const prevIndex = index - 1 < 0 ? imgs.length - 1 : index - 1;
 
-      if (imagesElsRef.current[prevIndex]) {
-        imagesElsRef.current[prevIndex].style.opacity = '0';
-      }
-      if (imagesElsRef.current[index]) {
-        imagesElsRef.current[index].style.opacity = '1';
-      }
+        if (imagesElsRef.current[prevIndex]) {
+          imagesElsRef.current[prevIndex].style.opacity = '0';
+        }
+        if (imagesElsRef.current[index]) {
+          imagesElsRef.current[index].style.opacity = '1';
+        }
 
-      index++;
-      onProgress(index / imgs.length);
-    }, interval);
+        index++;
+        onProgress(index / imgs.length);
+      }, interval);
+    }, 0);
   };
 
   const pause = () => {
     clearInterval();
-    startIndexRef.current =
-      currentFrameIndexRef.current === imgs.length - 1
-        ? 0
-        : currentFrameIndexRef.current;
+    startIndexRef.current = currentFrameIndexRef.current === imgs.length - 1 ? 0 : currentFrameIndexRef.current;
   };
 
   const dom = (
@@ -187,7 +185,7 @@ const useReactSequenceFramePlayer = ({
   );
 
   useEffect(() => {
-    readyPromiseRef.current = new Promise(resolve => {
+    readyPromiseRef.current = new Promise((resolve) => {
       resolveReadyRef.current = resolve;
     });
 
